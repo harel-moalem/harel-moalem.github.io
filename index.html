@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מצגת סיפור חיים ואהבה חגיגית</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Amatic+SC:wght@700&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Assistant', 'sans-serif'],
+                        cursive: ['Amatic SC', 'sans-serif'],
+                        serif: ['Tinos', 'serif'],
+                    },
+                    colors: {
+                        amber: {
+                            50: '#fefbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #2d1b10 0%, #0f0905 100%);
+            color: #f7f5f0;
+            overflow-x: hidden;
+        }
+        .slide-transition {
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+        .vintage-border {
+            box-shadow: 0 0 0 12px #f7f5f0, 0 15px 35px rgba(0, 0, 0, 0.6);
+            border: 2px solid #dfdcd3;
+        }
+        /* Confetti Canvas overlay */
+        #confetti-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+        /* Custom scrollbar for message board */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.3);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col justify-between">
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Header/Navigation Bar -->
+    <header class="w-full bg-black/40 backdrop-blur-md border-b border-amber-900/30 px-6 py-4 flex justify-between items-center z-40 relative">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl text-amber-400"><i class="fa-solid fa-heart-pulse animate-pulse"></i></span>
+            <div>
+                <h1 class="font-cursive text-3xl tracking-wider text-amber-200">סיפור האהבה והחיים שלנו</h1>
+                <p class="text-xs text-amber-400/80 -mt-1 font-semibold">מצגת חגיגית ומרגשת של רגעים בלתי נשכחים</p>
+            </div>
+        </div>
+        
+        <!-- Interactive Player Controls -->
+        <div class="flex items-center gap-4">
+            <!-- Music Controls -->
+            <button id="music-btn" class="bg-amber-900/40 hover:bg-amber-800/60 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-music"></i>
+                <span id="music-status">נגן מנגינת רקע</span>
+            </button>
+            
+            <!-- Confetti button -->
+            <button onclick="triggerConfettiBurst()" class="bg-gradient-to-r from-pink-600 to-amber-600 hover:from-pink-500 hover:to-amber-500 text-white px-3 py-1.5 rounded-full text-xs flex items-center gap-2 shadow-lg transition-all transform hover:scale-105">
+                <i class="fa-solid fa-wand-magic-sparkles animate-bounce"></i>
+                <span>הפרח קונפטי!</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Slide Area -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 relative overflow-hidden z-10">
+        
+        <!-- Left Nav Arrow -->
+        <button onclick="prevSlide()" class="absolute right-4 md:right-8 z-30 bg-black/50 hover:bg-amber-900/80 text-amber-300 w-12 h-12 rounded-full flex items-center justify-center transition-all border border-amber-500/20 hover:scale-110 active:scale-95" aria-label="הקודם">
+            <i class="fa-solid fa-chevron-right text-xl"></i>
+        </button>
+
+        <!-- Right Nav Arrow -->
+        <button onclick="nextSlide()" class="absolute left-4 md:left-8 z-30 bg-black/50 hover:bg-amber-900/80 text-amber-300 w-12 h-12 rounded-full flex items-center justify-center transition-all border border-amber-500/20 hover:scale-110 active:scale-95" aria-label="הבא">
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+        </button>
+
+        <!-- Dynamic Slide Stage -->
+        <div class="w-full max-w-5xl h-[550px] md:h-[650px] relative flex items-center justify-center">
+
+            <!-- SLIDE 1: Cover Slide -->
+            <div id="slide-0" class="slide-transition absolute inset-0 flex flex-col items-center justify-center opacity-100 z-20 pointer-events-auto">
+                <div class="text-center space-y-6 max-w-3xl px-4">
+                    <div class="relative inline-block">
+                        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-amber-400/40 shadow-2xl mx-auto transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+                            <img src="WhatsApp Image 2026-07-07 at 19.29.24 (8).jpeg" alt="שער המצגת" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -top-4 -right-4 bg-pink-600 text-white font-cursive text-xl py-1 px-4 rounded-full transform rotate-12 shadow-md">
+                            חגיגת חיים! 🎉
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <span class="text-amber-400 font-bold uppercase tracking-wider text-sm">סיפור של פעם בחיים</span>
+                        <h2 class="font-cursive text-6xl md:text-8xl text-amber-200 drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">חיים של אהבה ושמחה</h2>
+                        <hr class="w-24 border-t-2 border-amber-500 mx-auto my-4">
+                        <p class="text-lg md:text-2xl text-amber-100 font-serif max-w-2xl mx-auto leading-relaxed">
+                            המסע המופלא, הזכרונות והרגעים שהפכו יחד לסיפור המשפחתי המרגש ביותר שלנו.
+                        </p>
+                    </div>
+                    <div class="pt-4">
+                        <button onclick="startSlideshow()" class="bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold px-8 py-3 rounded-full text-md shadow-lg shadow-amber-500/20 transition-all transform hover:scale-105 inline-flex items-center gap-3">
+                            <i class="fa-solid fa-play"></i>
+                            <span>התחל את מסע הזמן</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: Youth & First Spark -->
+            <div id="slide-1" class="slide-transition absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center relative">
+                    <div class="vintage-border w-72 h-96 overflow-hidden bg-amber-900 rounded-sm transform -rotate-2 relative">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (10).jpeg" alt="מדרגות נעורים" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs font-serif italic">ראשית הדרך המשותפת</div>
+                    </div>
+                    <div class="absolute -right-4 bottom-4 vintage-border w-40 h-52 overflow-hidden bg-amber-900 rounded-sm transform rotate-6 hidden md:block">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (7).jpeg" alt="חיבוק נעורים" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">הכל התחיל בחיוך קטן...</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">הניצוץ הראשון</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        אי שם בשנים הראשונות, על מדרגות החיים, נבטה אהבה צעירה ותמימה. רגעים של התחלה מרגשת, מבטים סקרניים והבנה שקטה שמשהו גדול ועמוק עומד להתחיל.
+                    </p>
+                    <div class="inline-flex gap-2 items-center text-amber-400 text-sm font-semibold">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>רגעי נעורים קסומים</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Best Friends & Dog -->
+            <div id="slide-2" class="slide-transition absolute inset-0 flex flex-col md:flex-row-reverse items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center relative">
+                    <div class="vintage-border w-[320px] h-[400px] overflow-hidden bg-amber-900 rounded-sm transform rotate-1">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (2).jpeg" alt="רגעים בחצר עם הכלב" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">שותפים לדרך ולבית פשוט</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">רגעים פשוטים של אושר</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">החברים הכי טובים</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        לצד הכלבלב האהוב שמילא את החצר בשמחה, בניתם חיים יפים המבוססים על חברות אמת. רגעים נינוחים בגינה, שיחות ארוכות אל תוך הלילה וידיעה שהגעתם הביתה.
+                    </p>
+                    <div class="flex items-center justify-center md:justify-start gap-2 text-amber-400/85">
+                        <span class="bg-amber-950/60 border border-amber-500/20 px-3 py-1 rounded-full text-xs">שותפות</span>
+                        <span class="bg-amber-950/60 border border-amber-500/20 px-3 py-1 rounded-full text-xs">חיוכים של פעם</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Wedding - Ketubah Signing -->
+            <div id="slide-3" class="slide-transition absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[320px] h-[240px] md:w-[440px] md:h-[320px] overflow-hidden bg-amber-900 rounded-sm transform -rotate-1">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (4).jpeg" alt="חתימת הכתובה" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">רגע של התחייבות והתרגשות עצומה</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">חותמים על ברית עולמים</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">מבטיחים שותפות</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        מעמד חתימת הכתובה – הצעד המעשי והכל כך סמלי בדרך לבניית בית נאמן ויציב. סביב השולחן, עם האנשים הקרובים ביותר, נחתם הפרק החדש של מסע החיים שלכם.
+                    </p>
+                    <blockquote class="border-r-4 border-amber-500 pr-4 text-amber-300/80 italic text-sm md:text-base">
+                        "לבנות ביחד בית שהוא מקלט, מקור של שמחה והשראה."
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: Wedding - The Ring Exchange -->
+            <div id="slide-4" class="slide-transition absolute inset-0 flex flex-col md:flex-row-reverse items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[280px] h-[380px] overflow-hidden bg-amber-900 rounded-sm transform rotate-2">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (3).jpeg" alt="ענידת הטבעת" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">הרי את מקודשת לי</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">הבטחה חקוקה בזהב</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">הרי את מקודשת</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        רגע ענידת הטבעת תחת ההינומה העדינה. רגע שקט של קדושה, שבו שתי נשמות קשרו את גורלן זו בזו לנצח נצחים, מוקפות בעיניים דומעות מאושר.
+                    </p>
+                    <div class="text-amber-500 text-xl flex justify-center md:justify-start gap-1">
+                        <i class="fa-solid fa-ring"></i>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Wedding Kiss -->
+            <div id="slide-5" class="slide-transition absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[320px] h-[240px] md:w-[440px] md:h-[320px] overflow-hidden bg-amber-900 rounded-sm transform rotate-1">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (1).jpeg" alt="נשיקת חופה" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">רגע החיבור המוחלט מול כולם</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">תחת החופה המאולתרת</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">הנשיקה וההתחלה</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        הנשיקה הראשונה כזוג נשוי רשמית. עם הכיפה הלבנה, השמלה היפה, החיוכים של ההורים והאורחים שהביטו בהתרגשות. באותו הרגע, השער לעולם חדש של יחד נפתח לרווחה.
+                    </p>
+                    <div class="text-xs text-amber-400/70 uppercase tracking-widest font-bold">החתונה המרגשת שלנו</div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: Cozy Family Couch Pile-up -->
+            <div id="slide-6" class="slide-transition absolute inset-0 flex flex-col md:flex-row-reverse items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[320px] h-[240px] md:w-[440px] md:h-[320px] overflow-hidden bg-amber-900 rounded-sm transform -rotate-2">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (9).jpeg" alt="ערימת הילדים על הספה" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">הלב של הבית: ערימת ילדים ישנה</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">כשהבית מתמלא בנשמות חדשות</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">המשפחה שהקמתם</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        מה יכול להיות מתוק יותר מערימת ילדים שישנה ביחד על הספה? רגעים יומיומיים פשוטים שהם-הם המהות האמיתית של בית חם, אהבה ללא תנאים וביטחון מושלם.
+                    </p>
+                    <div class="flex items-center justify-center md:justify-start gap-2 text-amber-400/80">
+                        <i class="fa-solid fa-house-chimney-window"></i>
+                        <span>חמימות משפחתית טהורה</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: Family Portrait Lineup -->
+            <div id="slide-7" class="slide-transition absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[320px] h-[240px] md:w-[440px] md:h-[320px] overflow-hidden bg-amber-900 rounded-sm transform rotate-1">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (5).jpeg" alt="משפחה חגיגית" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">הילדים גדלו והפכו לגאוות הלב</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">העץ מצמיח ענפים לתפארת</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">הגוזלים גדלו</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        תמונה משפחתית חגיגית. הילדים המקסימים שגדלו, לבושים בהידור, עומדים בגאווה לצד ההורים שהעניקו להם את היסודות הכי טובים בעולם. השראה חיה של הצלחה וחיבוק חם.
+                    </p>
+                    <div class="inline-block bg-amber-950/40 px-4 py-2 rounded-lg border border-amber-500/20 text-sm text-amber-300">
+                        "דור הולך ודור בא, והאהבה נשארת איתנה"
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: Dancing together -->
+            <div id="slide-8" class="slide-transition absolute inset-0 flex flex-col md:flex-row-reverse items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[280px] h-[385px] overflow-hidden bg-amber-900 rounded-sm transform rotate-2">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (6).jpeg" alt="רוקדים באירוע" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">לא מפסיקים לרקוד יחד</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">הקצב של החיים</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">ממשיכים לרקוד</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        בתוך השגרה, המסיבות והאירועים המשפחתיים - אתם תמיד מוצאים את הזמן להחזיק ידיים, לעלות על הרחבה ולרקוד כאילו אף אחד לא מסתכל. האנרגיה והחיוניות שלכם סוחפת את כולם.
+                    </p>
+                    <div class="flex justify-center md:justify-start gap-3 text-pink-400">
+                        <i class="fa-solid fa-music animate-bounce"></i>
+                        <i class="fa-solid fa-compact-disc animate-spin" style="animation-duration: 4s;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: Present Birthday Celebration -->
+            <div id="slide-9" class="slide-transition absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 opacity-0 z-10 pointer-events-none">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="vintage-border w-[280px] h-[385px] overflow-hidden bg-amber-900 rounded-sm transform -rotate-1">
+                        <img src="WhatsApp Image 2026-07-07 at 19.29.24 (8).jpeg" alt="יום הולדת עם בלונים" class="w-full h-full object-cover">
+                        <div class="absolute bottom-4 left-4 right-4 bg-black/60 text-white text-xs p-2 text-center backdrop-blur-xs">יום הולדת שמח עם עוגה בלונים ואהבה</div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4 text-center md:text-right px-4">
+                    <span class="text-amber-400 font-cursive text-3xl">יום הולדת שמח ומבורך!</span>
+                    <h3 class="text-3xl md:text-5xl font-bold text-amber-100 leading-tight font-serif">חוגגים את החיים</h3>
+                    <p class="text-amber-200/90 text-md md:text-lg leading-relaxed">
+                        הגענו לרגע המיוחד של היום - חגיגת יום הולדת מלאת שמחה, מתוקים ובלונים צבעוניים. עם עוגת שוקולד ביתית עשירה, המון איחולים והאנשים שאוהבים אתכם הכי הרבה בעולם.
+                    </p>
+                    <p class="text-amber-400 font-semibold text-lg">עד 120 כעשרים, בבריאות, שמחה ואהבה אינסופית! ❤️</p>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: Interactive wishing board / guest book -->
+            <div id="slide-10" class="slide-transition absolute inset-0 flex flex-col items-center justify-center opacity-0 z-10 pointer-events-none">
+                <div class="w-full max-w-4xl text-center space-y-6 px-4">
+                    <span class="text-amber-400 font-bold uppercase tracking-widest text-xs">לוח איחולים אינטראקטיבי</span>
+                    <h2 class="font-cursive text-5xl md:text-7xl text-amber-200">ברכות לבביות מהמשפחה והחברים</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-h-[300px] overflow-y-auto p-2" id="wishes-container">
+                        <!-- Card 1 -->
+                        <div class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/20 text-right space-y-2 shadow-lg">
+                            <p class="text-amber-100 text-sm font-serif">"מאחלת לכם עוד המון שנים של ריקודים משותפים, בריאות מעולה וים של נחת מאיתנו הילדים!"</p>
+                            <div class="text-xs text-amber-400 font-semibold">— באהבה גדולה, הבת שלכם</div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/20 text-right space-y-2 shadow-lg">
+                            <p class="text-amber-100 text-sm font-serif">"לראות את התמונות שלכם מהמדרגות ועד היום עושה לחלוחית בעיניים. ההשראה הכי גדולה לזוגיות יפה."</p>
+                            <div class="text-xs text-amber-400 font-semibold">— המשפחה המורחבת</div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-amber-950/40 p-4 rounded-xl border border-amber-500/20 text-right space-y-2 shadow-lg">
+                            <p class="text-amber-100 text-sm font-serif">"יום הולדת שמח ומאושר! שתמשיכו לצבור זכרונות יפים, לטייל, לאהוב ולחייך תמיד!"</p>
+                            <div class="text-xs text-amber-400 font-semibold">— החברים הטובים</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive greeting form inside presentation -->
+                    <div class="bg-black/40 p-4 rounded-2xl border border-amber-500/10 max-w-lg mx-auto space-y-3">
+                        <p class="text-xs text-amber-300">הוסיפו ברכה משלכם למצגת החגיגית:</p>
+                        <div class="flex gap-2">
+                            <input id="guest-wish" type="text" placeholder="כתבו איחול חם כאן..." class="bg-amber-950/30 text-amber-100 text-sm px-4 py-2 rounded-lg border border-amber-500/20 focus:outline-none focus:border-amber-400 flex-grow text-right">
+                            <input id="guest-name" type="text" placeholder="שמכם" class="bg-amber-950/30 text-amber-100 text-sm px-3 py-2 rounded-lg border border-amber-500/20 focus:outline-none focus:border-amber-400 w-24 text-right">
+                            <button onclick="addWish()" class="bg-amber-500 hover:bg-amber-400 text-amber-950 px-4 py-2 rounded-lg text-xs font-bold transition-all shrink-0">הוסף ברכה</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Slide Controller & Indicators -->
+    <footer class="w-full bg-black/60 backdrop-blur-md border-t border-amber-900/30 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 z-40 relative">
+        <!-- Autoplay Status & Action Button -->
+        <div class="flex items-center gap-3">
+            <button id="autoplay-btn" onclick="toggleAutoplay()" class="bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold px-4 py-1.5 rounded-full text-xs flex items-center gap-2 transition-all">
+                <i id="autoplay-icon" class="fa-solid fa-play"></i>
+                <span id="autoplay-text">נגן מצגת אוטומטית</span>
+            </button>
+            <div id="autoplay-bar-container" class="w-24 h-1.5 bg-amber-900/40 rounded-full overflow-hidden hidden">
+                <div id="autoplay-bar" class="h-full bg-amber-400 w-0 transition-all duration-100"></div>
+            </div>
+        </div>
+
+        <!-- Slide Dots Indicators -->
+        <div class="flex items-center gap-1.5" id="dots-container">
+            <!-- Dynamically generated dot indicators will appear here -->
+        </div>
+
+        <!-- Progress Counter -->
+        <div class="text-amber-400 text-xs font-semibold">
+            שקף <span id="current-slide-num" class="text-amber-200">1</span> מתוך <span id="total-slides-num" class="text-amber-200">11</span>
+        </div>
+    </footer>
+
+    <script>
+        // Total slides in the DOM
+        const TOTAL_SLIDES = 11;
+        let currentSlide = 0;
+        let autoplayInterval = null;
+        const SLIDE_DURATION = 6000; // 6 seconds per slide
+        let autoplayProgress = 0;
+        let autoplayTimer = null;
+        let audioContext = null;
+        let synthesizerActive = false;
+        let synthInterval = null;
+
+        // Initialize slideshow elements
+        window.onload = function() {
+            setupIndicators();
+            updateSlideView();
+            initConfetti();
+        };
+
+        function setupIndicators() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            for (let i = 0; i < TOTAL_SLIDES; i++) {
+                const dot = document.createElement('button');
+                dot.className = `w-2.5 h-2.5 rounded-full transition-all ${i === 0 ? 'bg-amber-400 scale-125' : 'bg-amber-800 hover:bg-amber-600'}`;
+                dot.onclick = () => goToSlide(i);
+                dot.setAttribute('aria-label', `עבור לשקף ${i + 1}`);
+                dot.id = `dot-${i}`;
+                container.appendChild(dot);
+            }
+            document.getElementById('total-slides-num').innerText = TOTAL_SLIDES;
+        }
+
+        function updateSlideView() {
+            for (let i = 0; i < TOTAL_SLIDES; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                const dot = document.getElementById(`dot-${i}`);
+                if (slide) {
+                    if (i === currentSlide) {
+                        slide.classList.remove('opacity-0', 'pointer-events-none');
+                        slide.classList.add('opacity-100', 'pointer-events-auto', 'z-20');
+                        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 scale-125 transition-all';
+                    } else {
+                        slide.classList.remove('opacity-100', 'pointer-events-auto', 'z-20');
+                        slide.classList.add('opacity-0', 'pointer-events-none', 'z-10');
+                        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-800 hover:bg-amber-600 transition-all';
+                    }
+                }
+            }
+            document.getElementById('current-slide-num').innerText = currentSlide + 1;
+            
+            // Trigger a quick festive burst of confetti on specific key slides
+            if (currentSlide === 5 || currentSlide === 9) {
+                triggerConfettiBurst();
+            }
+        }
+
+        function nextSlide() {
+            resetAutoplayProgress();
+            currentSlide = (currentSlide + 1) % TOTAL_SLIDES;
+            updateSlideView();
+        }
+
+        function prevSlide() {
+            resetAutoplayProgress();
+            currentSlide = (currentSlide - 1 + TOTAL_SLIDES) % TOTAL_SLIDES;
+            updateSlideView();
+        }
+
+        function goToSlide(index) {
+            resetAutoplayProgress();
+            currentSlide = index;
+            updateSlideView();
+        }
+
+        function startSlideshow() {
+            goToSlide(1);
+            if (!autoplayInterval) {
+                toggleAutoplay();
+            }
+        }
+
+        function toggleAutoplay() {
+            const btn = document.getElementById('autoplay-btn');
+            const icon = document.getElementById('autoplay-icon');
+            const text = document.getElementById('autoplay-text');
+            const progressContainer = document.getElementById('autoplay-bar-container');
+
+            if (autoplayInterval) {
+                // Pause Autoplay
+                clearInterval(autoplayInterval);
+                clearInterval(autoplayTimer);
+                autoplayInterval = null;
+                autoplayTimer = null;
+                icon.className = 'fa-solid fa-play';
+                text.innerText = 'נגן מצגת אוטומטית';
+                progressContainer.classList.add('hidden');
+                resetAutoplayProgress();
+            } else {
+                // Play Autoplay
+                progressContainer.classList.remove('hidden');
+                icon.className = 'fa-solid fa-pause';
+                text.innerText = 'השהה מצגת';
+                
+                autoplayProgress = 0;
+                const updateFreq = 100; // milliseconds
+                
+                autoplayTimer = setInterval(() => {
+                    autoplayProgress += (updateFreq / SLIDE_DURATION) * 100;
+                    if (autoplayProgress >= 100) {
+                        autoplayProgress = 0;
+                    }
+                    document.getElementById('autoplay-bar').style.width = `${autoplayProgress}%`;
+                }, updateFreq);
+
+                autoplayInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % TOTAL_SLIDES;
+                    updateSlideView();
+                    autoplayProgress = 0;
+                }, SLIDE_DURATION);
+            }
+        }
+
+        function resetAutoplayProgress() {
+            autoplayProgress = 0;
+            const bar = document.getElementById('autoplay-bar');
+            if (bar) bar.style.width = '0%';
+        }
+
+        let confettiParticles = [];
+        const maxConfetti = 80;
+
+        function initConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw particles
+                for (let i = 0; i < confettiParticles.length; i++) {
+                    const p = confettiParticles[i];
+                    p.y += p.velocity;
+                    p.x += Math.sin(p.angle);
+                    p.angle += p.angleSpeed;
+                    
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Remove if fallen past screen
+                    if (p.y > canvas.height) {
+                        confettiParticles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            requestAnimationFrame(draw);
+        }
+
+        function triggerConfettiBurst() {
+            const canvas = document.getElementById('confetti-canvas');
+            const colors = ['#f59e0b', '#fbbf24', '#fde68a', '#ec4899', '#f43f5e', '#a855f7'];
+            
+            for (let i = 0; i < 40; i++) {
+                confettiParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: -10,
+                    size: Math.random() * 6 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    velocity: Math.random() * 4 + 2,
+                    angle: Math.random() * Math.PI,
+                    angleSpeed: Math.random() * 0.05 - 0.025
+                });
+            }
+        }
+
+        document.getElementById('music-btn').addEventListener('click', function() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const statusText = document.getElementById('music-status');
+            const btn = document.getElementById('music-btn');
+
+            if (synthesizerActive) {
+                // Pause Synth Soundtrack
+                clearInterval(synthInterval);
+                synthesizerActive = false;
+                statusText.innerText = 'נגן מנגינת רקע';
+                btn.classList.remove('bg-amber-500', 'text-amber-950');
+                btn.classList.add('bg-amber-900/40', 'text-amber-300');
+            } else {
+                // Play Synth Soundtrack
+                synthesizerActive = true;
+                statusText.innerText = 'מנגן... (לחץ לעצור)';
+                btn.classList.add('bg-amber-500', 'text-amber-950');
+                btn.classList.remove('bg-amber-900/40', 'text-amber-300');
+                playNostalgicMelody();
+            }
+        });
+
+        function playNostalgicMelody() {
+            // Nostalgic / Lullaby Happy Birthday chord sequence generated on the fly
+            // Simple frequencies for Happy Birthday and romantic chords
+            const notes = [
+                261.63, 261.63, 293.66, 261.63, 349.23, 329.63, // Happy birthday block 1
+                261.63, 261.63, 293.66, 261.63, 392.00, 349.23, // Happy birthday block 2
+                261.63, 261.63, 523.25, 440.00, 349.23, 329.63, 293.66,
+                466.16, 466.16, 440.00, 349.23, 392.00, 349.23
+            ];
+            
+            const noteDurations = [
+                300, 300, 600, 600, 600, 1200,
+                300, 300, 600, 600, 600, 1200,
+                300, 300, 600, 600, 600, 600, 1200,
+                300, 300, 600, 600, 600, 1200
+            ];
+
+            let noteIndex = 0;
+
+            function playNextNote() {
+                if (!synthesizerActive) return;
+
+                const osc = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                osc.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                // Elegant retro sinewave or triangle tone
+                osc.type = 'triangle'; 
+                osc.frequency.setValueAtTime(notes[noteIndex], audioContext.currentTime);
+
+                const duration = noteDurations[noteIndex] / 1000;
+                
+                // Volume envelope to make it soft and pleasant
+                gainNode.gain.setValueAtTime(0.12, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration - 0.05);
+
+                osc.start();
+                osc.stop(audioContext.currentTime + duration);
+
+                noteIndex = (noteIndex + 1) % notes.length;
+                synthInterval = setTimeout(playNextNote, noteDurations[noteIndex]);
+            }
+
+            playNextNote();
+        }
+
+        function addWish() {
+            const textInput = document.getElementById('guest-wish');
+            const nameInput = document.getElementById('guest-name');
+            const wishesContainer = document.getElementById('wishes-container');
+
+            const text = textInput.value.trim();
+            const name = nameInput.value.trim() || 'אורח/ת';
+
+            if (!text) {
+                alert('אנא כתבו ברכה לפני השליחה!');
+                return;
+            }
+
+            // Create new wish bubble
+            const wishCard = document.createElement('div');
+            wishCard.className = 'bg-amber-950/60 p-4 rounded-xl border border-amber-400/40 text-right space-y-2 shadow-lg transform scale-105 transition-all duration-500';
+            wishCard.innerHTML = `
+                <p class="text-amber-100 text-sm font-serif">"${text}"</p>
+                <div class="text-xs text-amber-300 font-semibold">— באהבה, ${name}</div>
+            `;
+
+            // Insert at the beginning of the container
+            wishesContainer.insertBefore(wishCard, wishesContainer.firstChild);
+
+            // Trigger sparkles
+            triggerConfettiBurst();
+
+            // Reset inputs
+            textInput.value = '';
+            nameInput.value = '';
+
+            // Return scale to normal after a brief moment
+            setTimeout(() => {
+                wishCard.classList.remove('scale-105');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
