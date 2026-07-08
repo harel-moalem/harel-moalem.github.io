@@ -193,9 +193,12 @@ function playNextItem() {
         document.getElementById('movie-bg-blur-2').className = 'bg-blur';
         progressContainer.classList.add('hide-progress'); 
 
-        // ברכות וידאו: עוצרים או מנמיכים את מוזיקת הרקע לחלוטין כדי לשמוע את המברך
+        // ברכות וידאו: מנמיכים את מוזיקת הרקע כדי לשמוע את המברך אך לשמור על האווירה
         if (bgMusic) {
-            bgMusic.pause(); 
+            bgMusic.volume = 0.08;
+            if (bgMusic.paused && isPlaying) {
+                bgMusic.play().catch(err => console.log(err));
+            }
         }
 
         videoElement.src = item.url;
@@ -247,8 +250,16 @@ function togglePlayPause() {
     const currentItem = playlist[currentItemIndex];
 
     if (currentItem && currentItem.type === 'video') {
-        if (isPlaying) currentVideo.play();
-        else currentVideo.pause();
+        if (isPlaying) {
+            currentVideo.play();
+            if (bgMusic) {
+                bgMusic.volume = 0.08;
+                bgMusic.play().catch(err => console.log(err));
+            }
+        } else {
+            currentVideo.pause();
+            if (bgMusic) bgMusic.pause();
+        }
     } else {
         // במידה ועצרנו תמונה, נעצור גם את מוזיקת הרקע
         if (bgMusic) {
