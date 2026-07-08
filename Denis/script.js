@@ -18,7 +18,7 @@ const playlist = [
     { type: 'image', url: 'img/img3.jpeg', caption: 'חוגגים ביחד ברגעים שמחים ומלאי אנרגיה' },
     { type: 'image', url: 'img/img27.jpeg', caption: 'יוצרים זיכרונות מאושרים יחד' },
     // פרק ד
-    { type: 'image', url: 'img/img19.jpeg', caption: 'התפקיד הכי ממיס - סבתא קשובה ואוהבת' },
+    { type: 'image', url: 'img/img19.jpeg', caption: 'זכית בגאווה לתואר אישה פורצת דרך' },
     { type: 'image', url: 'img/img23.jpeg', caption: 'רגעים שלא נשכח' },
     { type: 'image', url: 'img/img37.jpeg', caption: 'רגע מרגש של דור חדש שמצטרף למשפחה' },
     { type: 'image', url: 'img/img38.jpeg', caption: 'חוגגים את התרחבות המשפחה באהבה גדולה' },
