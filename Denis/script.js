@@ -13,6 +13,7 @@ const playlist = [
     // פרק ג
     { type: 'image', url: 'img/img10.jpeg', caption: 'תקופה של חגיגות, שמחות ואירועים' },
     { type: 'image', url: 'img/img11.jpeg', caption: 'תמיד יודעת לרקוד ולשמוח מכל הלב' },
+    { type: 'video', url: 'img/denis_dancing.mp4', caption: 'רוקדת ושמחה במרכז הרחבה!' },
     { type: 'image', url: 'img/img14.jpeg', caption: 'השטויות שרק אנחנו יודעים לעשות..' },
     { type: 'image', url: 'img/img3.jpeg', caption: 'חוגגים ביחד ברגעים שמחים ומלאי אנרגיה' },
     { type: 'image', url: 'img/img27.jpeg', caption: 'יוצרים זיכרונות מאושרים יחד' },
@@ -22,6 +23,8 @@ const playlist = [
     { type: 'image', url: 'img/img37.jpeg', caption: 'רגע מרגש של דור חדש שמצטרף למשפחה' },
     { type: 'image', url: 'img/img38.jpeg', caption: 'חוגגים את התרחבות המשפחה באהבה גדולה' },
     { type: 'image', url: 'img/img39.jpeg', caption: 'הדורות הבאים שנולדו מתוך האהבה שלך' },
+    { type: 'video', url: 'img/vm_denis_ido.mp4', caption: 'רגעים מתוקים של משחק עם עידו הנכד' },
+    { type: 'video', url: 'img/vm_denis_ido_2.mp4', caption: 'ממיסה את הלב... משחקת וצוחקת עם עידו' },
     { type: 'image', url: 'img/img1.jpeg', caption: 'רגעים קרובים עם הילדים – חיוך שאומר הכל' },
     { type: 'image', url: 'img/img2.jpeg', caption: 'סביב שולחן אחד, מוקפת באהבה של כולם' },
     { type: 'image', url: 'img/img4.jpeg', caption: 'המשפחה המדהימה שבנית – הכוח והאושר שלך' },
