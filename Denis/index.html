@@ -9,12 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Secular+One&display=swap" rel="stylesheet">
-    <!-- ... קבצי ה-CSS הקיימים שלך ... -->
+    <!-- קישורי עיצוב -->
     <link rel="stylesheet" href="style.css">
-    <!-- הוספת ה-CSS של החלקיקים -->
     <link rel="stylesheet" href="particles.css">
-    <!-- קישור לקובץ ה-CSS החיצוני -->
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -36,6 +33,7 @@
             <h2 class="chapter-title">פרק א': איפה הכל התחיל</h2>
             <div class="grid">
                 <div class="media-card"><img src="img/img44.jpeg" alt="ילדות"></div>
+                <div class="media-card"><img src="img/img45.jpeg" alt="ילדות"></div>
                 <div class="media-card"><img src="img/img46.jpeg" alt="ילדות"></div>
                 <div class="media-card"><img src="img/img47.jpeg" alt="ילדות"></div>
                 <div class="media-card"><img src="img/img48.jpeg" alt="ילדות"></div>
@@ -74,6 +72,7 @@
                 <div class="media-card"><img src="img/img27.jpeg" alt="חגיגה גדולה"></div>
                 <div class="media-card"><img src="img/img34.jpeg" alt="חברים"></div>
                 <div class="media-card"><img src="img/img35.jpeg" alt="אירוע חברה"></div>
+                <div class="media-card"><img src="img/img3.jpeg" alt="חגיגה משפחתית"></div>
             </div>
         </section>
 
@@ -88,7 +87,12 @@
                 <div class="media-card"><img src="img/img23.jpeg" alt="סבתא והקטנטנים"></div>
                 <div class="media-card"><img src="img/img24.jpeg" alt="נכדים"></div>
                 <div class="media-card"><img src="img/img25.jpeg" alt="סבתא"></div>
+                <div class="media-card"><img src="img/img37.jpeg" alt="תינוק חדש במשפחה"></div>
+                <div class="media-card"><img src="img/img38.jpeg" alt="חגיגת ברית"></div>
                 <div class="media-card"><img src="img/img39.jpeg" alt="סבתא ודור ההמשך"></div>
+                <div class="media-card"><img src="img/img1.jpeg" alt="עם הבן"></div>
+                <div class="media-card"><img src="img/img2.jpeg" alt="ארוחה משפחתית"></div>
+                <div class="media-card"><img src="img/img4.jpeg" alt="משפחה בחצר"></div>
                 <div class="media-card"><img src="img/img40.jpeg" alt="צילום משפחתי"></div>
                 <div class="media-card"><img src="img/img41.jpeg" alt="מפגש משפחתי"></div>
                 <div class="media-card"><img src="img/img42.jpeg" alt="חגיגה משפחתית"></div>
@@ -105,9 +109,10 @@
         <!-- פרק 5: ברכות וידאו -->
         <section class="chapter">
             <h2 class="chapter-title">פרק ה': מילים חמות מהלב (סרטוני ברכה)</h2>
+            <p class="chapter-subtitle" style="font-size: 1.2rem; margin-bottom: 25px; color: #666; font-weight: 300; text-align: right; max-width: 600px;">ועכשיו... קצת ברכות חמות ומרגשות שהגיעו במיוחד מרחוק! 🌍❤️</p>
             <div class="grid">
-                <div class="media-card"><video controls src="img/vm_jeniffer_1.mp4"></video></div>
-                <div class="media-card"><video controls src="img/vm_lisa_1.mp4"></video></div>
+                <div class="media-card"><video controls src="img/vm_jeniffer_1.MP4"></video></div>
+                <div class="media-card"><video controls src="img/vm_lisa_1.MP4"></video></div>
                 <div class="media-card"><video controls src="img/vm_yehil_1.mp4"></video></div>
                 <div class="media-card"><video controls src="img/vm_yehil_2.mp4"></video></div>
             </div>
@@ -141,9 +146,9 @@
 
         <!-- פאנל שליטה ופס התקדמות דינמי -->
         <div class="movie-controls">
-            <button class="control-btn" onclick="prevSlide()">⏮️</button>
+            <button class="control-btn" onclick="prevSlide()">⏭️</button>
             <button class="control-btn" id="play-pause-btn" onclick="togglePlayPause()">⏸️</button>
-            <button class="control-btn" onclick="nextSlide()">⏭️</button>
+            <button class="control-btn" onclick="nextSlide()">⏮️</button>
             
             <div class="progress-container" id="progress-container">
                 <div class="progress-bar" id="movie-progress"></div>

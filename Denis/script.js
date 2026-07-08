@@ -1,6 +1,7 @@
 const playlist = [
     // פרק א
     { type: 'image', url: 'img/img44.jpeg', caption: 'איפה הכל התחיל... השנים המוקדמות' },
+    { type: 'image', url: 'img/img45.jpeg', caption: 'ילדות מתוקה ומלאת שקט' },
     { type: 'image', url: 'img/img46.jpeg', caption: 'החיוך שתמיד נשאר קסום' },
     { type: 'image', url: 'img/img49.jpeg', caption: 'תקופת הנעורים והרפתקאות יפות' },
     { type: 'image', url: 'img/img51.jpeg', caption: 'הבית והמשפחה שממנה צמחת' },
@@ -12,17 +13,24 @@ const playlist = [
     // פרק ג
     { type: 'image', url: 'img/img10.jpeg', caption: 'תקופה של חגיגות, שמחות ואירועים' },
     { type: 'image', url: 'img/img11.jpeg', caption: 'תמיד יודעת לרקוד ולשמוח מכל הלב' },
-    { type: 'image', url: 'img/img14.jpeg', caption: 'מוקפת בחברים קרובים שאוהבים אותך' },
+    { type: 'image', url: 'img/img14.jpeg', caption: 'השטויות שרק אנחנו יודעים לעשות..' },
+    { type: 'image', url: 'img/img3.jpeg', caption: 'חוגגים ביחד ברגעים שמחים ומלאי אנרגיה' },
     { type: 'image', url: 'img/img27.jpeg', caption: 'יוצרים זיכרונות מאושרים יחד' },
     // פרק ד
     { type: 'image', url: 'img/img19.jpeg', caption: 'התפקיד הכי ממיס - סבתא קשובה ואוהבת' },
-    { type: 'image', url: 'img/img23.jpeg', caption: 'מחבקת ומעניקה את כל הלב לקטנטנים' },
+    { type: 'image', url: 'img/img23.jpeg', caption: 'רגעים שלא נשכח' },
+    { type: 'image', url: 'img/img37.jpeg', caption: 'רגע מרגש של דור חדש שמצטרף למשפחה' },
+    { type: 'image', url: 'img/img38.jpeg', caption: 'חוגגים את התרחבות המשפחה באהבה גדולה' },
     { type: 'image', url: 'img/img39.jpeg', caption: 'הדורות הבאים שנולדו מתוך האהבה שלך' },
-    { type: 'image', url: 'img/img29.jpeg', caption: 'הגאווה הגדולה של החיים שלך - המשפחה בלבן' },
+    { type: 'image', url: 'img/img1.jpeg', caption: 'רגעים קרובים עם הילדים – חיוך שאומר הכל' },
+    { type: 'image', url: 'img/img2.jpeg', caption: 'סביב שולחן אחד, מוקפת באהבה של כולם' },
+    { type: 'image', url: 'img/img4.jpeg', caption: 'המשפחה המדהימה שבנית – הכוח והאושר שלך' },
+    { type: 'image', url: 'img/img29.jpeg', caption: 'הגאווה הגדולה של החיים שלך - המשפחה שלך' },
     { type: 'image', url: 'img/img31.jpeg', caption: 'מאוחדים, שמחים ותמיד איתך' },
     // פרק ה: סרטוני ברכה
-    { type: 'video', url: 'img/vm_jeniffer_1.mp4', caption: 'ברכה חמה מג׳ניפר' },
-    { type: 'video', url: 'img/vm_lisa_1.mp4', caption: 'ברכה אוהבת מליזה' },
+    { type: 'text', title: 'ועכשיו...', caption: 'קצת ברכות חמות ומרגשות מרחוק... 🌍❤️' },
+    { type: 'video', url: 'img/vm_jeniffer_1.MP4', caption: 'ברכה חמה מג׳ניפר' },
+    { type: 'video', url: 'img/vm_lisa_1.MP4', caption: 'ברכה אוהבת מליזה' },
     { type: 'video', url: 'img/vm_yehil_1.mp4', caption: 'יחיאל עם חלק ראשון של הברכות' },
     { type: 'video', url: 'img/vm_yehil_2.mp4', caption: 'יחיאל ממשיך ומאחל מכל הלב' },
     // סיום
@@ -114,16 +122,20 @@ function playNextItem() {
 
     captionElement.classList.remove('active');
     setTimeout(() => {
-        captionElement.innerText = item.caption;
+        if (item.type === 'text') {
+            captionElement.innerHTML = `<span class="text-slide-title" style="font-size: 3.5rem; display: block; margin-bottom: 20px; color: var(--accent-gold); font-family: 'Secular One', sans-serif;">${item.title}</span><span style="font-size: 2.2rem; font-weight: 300;">${item.caption}</span>`;
+        } else {
+            captionElement.innerText = item.caption;
+        }
         captionElement.classList.add('active');
     }, 400);
 
-    if (item.type === 'image') {
+    if (item.type === 'image' || item.type === 'text') {
         videoElement.style.display = 'none';
         videoElement.pause();
         progressContainer.classList.remove('hide-progress');
 
-        // אם חזרנו מוידאו לתמונות - נחזיר את מוזיקת הרקע לווליום הרגיל
+        // אם חזרנו מוידאו לתמונות/טקסט - נחזיר את מוזיקת הרקע לווליום הרגיל
         if (bgMusic && isPlaying && bgMusic.paused) {
             bgMusic.volume = 0.4;
             bgMusic.play();
@@ -142,16 +154,24 @@ function playNextItem() {
         nextImg.classList.remove('zooming', 'visible');
         nextBg.classList.remove('visible');
         
-        nextImg.src = item.url;
-        nextBg.src = item.url;
-        
-        void nextImg.offsetWidth; 
-        
-        nextImg.classList.add('zooming', 'visible');
-        nextBg.classList.add('visible');
+        if (item.type === 'image') {
+            nextImg.src = item.url;
+            nextBg.src = item.url;
+            
+            void nextImg.offsetWidth; 
+            
+            nextImg.classList.add('zooming', 'visible');
+            nextBg.classList.add('visible');
+        } else {
+            // עבור שקופית טקסט - מציגים רק רקע מטושטש מתמונת הסיום או תמונה קודמת
+            nextBg.src = playlist[currentItemIndex - 1]?.url || 'img/img36.jpeg';
+            nextBg.classList.add('visible');
+        }
 
         currentImg.classList.remove('visible');
-        currentBg.classList.remove('visible');
+        if (item.type === 'image') {
+            currentBg.classList.remove('visible');
+        }
 
         setTimeout(() => {
             if (!currentImg.classList.contains('visible')) {
