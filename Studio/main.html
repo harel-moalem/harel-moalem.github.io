@@ -58,27 +58,39 @@ h2{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;margin-bottom:10px}
 .why p{margin:0;color:var(--muted)}
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:32px;align-items:center}
 .photo{aspect-ratio:4/5;background:var(--blush);border-radius:200px 200px 24px 24px;display:grid;place-items:center;text-align:center;padding:20px;font:500 1rem Rubik,Arial,sans-serif}
+.photo{padding:0;overflow:hidden;border-radius:26px 26px 60px 26px}.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
 @media (max-width:700px){.about{grid-template-columns:1fr}.photo{max-width:260px}}
-.signup{background:var(--ink);color:var(--bg);border-radius:28px;padding:40px 24px}
-.signup h2{color:var(--bg)}
-.signup .lead{color:var(--blush)}
+.signup{background:linear-gradient(rgba(60,10,38,.86),rgba(60,10,38,.93)),url(images/signup-bg.jpg) center/cover;color:#FFEFF4;border-radius:28px;padding:40px 24px}
+.signup h2{color:#FFEFF4}
+.signup .lead{color:#F6CADA}
 .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
 label{display:block;font-weight:600;margin-bottom:6px}
 input{width:100%;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid transparent;background:#fff;color:#4A0F2E}
-.signup .btn.alt{color:var(--bg);border-color:var(--bg);margin-inline-start:8px}
+.signup .btn.alt{color:#FFEFF4;border-color:#FFEFF4;margin-inline-start:8px}
 footer{padding:40px 0 100px;color:var(--muted);text-align:center}
 .wa{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:16px;z-index:5;background:#25D366;color:#0b2e17;font:500 1rem Rubik,Arial,sans-serif;padding:12px 20px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-@media (prefers-reduced-motion:reduce){.ribbon path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+.hero::before{content:"";position:absolute;inset:0 auto 0 -8%;width:78%;background:url(images/hero.jpg) 40% 35%/cover;-webkit-mask-image:linear-gradient(to left,transparent 0,#000 58%);mask-image:linear-gradient(to left,transparent 0,#000 58%);transform-origin:30% 50%;animation:kb 26s ease-out forwards;z-index:0}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+@media (max-width:700px){.hero::before{inset:0;width:100%;opacity:.32;-webkit-mask-image:none;mask-image:none}}
+.gallery{columns:3 250px;column-gap:14px}
+.gallery figure{margin:0 0 14px;break-inside:avoid}
+.gallery button{position:relative;display:block;width:100%;padding:0;border:0;border-radius:20px;overflow:hidden;cursor:zoom-in;background:var(--line)}
+.gallery img{display:block;width:100%;height:auto;transition:transform .6s}
+.gallery button::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(194,71,122,.38),transparent 55%);opacity:0;transition:opacity .4s}
+.gallery button:hover img,.gallery button:focus-visible img{transform:scale(1.06)}
+.gallery button:hover::after,.gallery button:focus-visible::after{opacity:1}
+dialog{border:0;padding:0;background:transparent;max-width:96vw;max-height:94vh;overflow:visible}
+dialog::backdrop{background:rgba(30,8,20,.88)}
+dialog img{display:block;max-width:96vw;max-height:80vh;margin:0 auto;border-radius:14px}
+.lbc{display:flex;justify-content:center;gap:10px;margin-top:12px}
+.lbc button{background:#fff;color:#4A0F2E;border:0;border-radius:999px;padding:8px 20px;font:500 1rem Rubik,Arial,sans-serif;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.hero::before{animation:none}.gallery img{transition:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header class="hero">
-  <svg class="ribbon" viewBox="0 0 600 400" aria-hidden="true">
-    <path class="a" d="M20 330 C 150 40, 260 420, 380 150 S 540 60, 590 120"/>
-    <path class="b" d="M20 360 C 170 120, 280 440, 400 200 S 550 120, 590 170"/>
-    <path class="c" d="M20 390 C 190 200, 300 460, 420 250 S 560 180, 590 220"/>
-  </svg>
-  <div class="badge" aria-label="50 שנה">50<small>שנה</small></div>
+    <div class="badge" aria-label="50 שנה">50<small>שנה</small></div>
   <div class="wrap">
     <div class="brand"><b>גפני</b><span>בית ספר למחול<br>ולאומנויות הבמה</span></div>
     <h1>50 שנה של מחול בעפולה</h1>
@@ -133,12 +145,50 @@ footer{padding:40px 0 100px;color:var(--muted);text-align:center}
   </div>
 </section>
 
+<section aria-labelledby="gal-h">
+  <div class="wrap">
+    <h2 id="gal-h">מהבמה ומהסטודיו</h2>
+    <p class="lead">הופעות, חזרות ורגעים מהדרך של גפני.</p>
+    <div class="gallery">
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-01.jpg" alt="רקדן בקפיצה על במה באור סגול" width="720" height="480" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-02.jpg" alt="תלמידות בהופעת בלט על במה" width="720" height="480" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-03.jpg" alt="תלמידות ומורה מגפני מול בניין" width="900" height="600" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-04.jpg" alt="קבוצת רקדניות בהופעה על במה" width="696" height="518" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-05.jpg" alt="ילדות קטנות בהופעת סיום השנה "צבעי הקשת" בהיכל התרבות בעפולה" width="774" height="440" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-06.jpg" alt="רקדן בקפיצה בחצאית בהירה על רקע שחור" width="640" height="640" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-07.jpg" alt="ילדות מרימות ידיים בהופעה בחוץ, עם דגל ישראל" width="900" height="506" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-08.jpg" alt="ילדות רוקדות בהופעת סיום השנה "צבעי הקשת" על הבמה" width="900" height="676" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-09.jpg" alt="רקדנית בחדר חזרות, בשחור לבן" width="506" height="900" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-10.jpg" alt="רקדן בתנועה על במה באור סגול" width="900" height="600" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-11.jpg" alt="רקדנית בלט בתנוחת ארבסק על פוינט באור זרקורים" width="540" height="690" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-12.jpg" alt="רקדנית בלט על פוינט בסטודיו, בשחור לבן" width="676" height="900" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-13.jpg" alt="רקדן בקפיצה בלבן על רקע שחור" width="402" height="603" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-14.jpg" alt="הופעת סיום השנה "סינדרלה" בהיכל התרבות בעפולה" width="900" height="675" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-15.jpg" alt="תלמידות בלט בהופעה על במה" width="900" height="675" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-16.jpg" alt="קפיצה של רקדן על שפת הים" width="604" height="453" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-17.jpg" alt="להקת המחול הייצוגית הצעירה "שחקים" בהופעה ביום העצמאות על הבמה המרכזית" width="900" height="664" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-18.jpg" alt="רקדנית בלט בתנוחה בסטודיו, בשחור לבן" width="676" height="900" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-19.jpg" alt="זוג רקדנים על במה" width="864" height="864" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-20.jpg" alt="רקדנית בקפיצה על במה חשוכה" width="645" height="900" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-21.jpg" alt="קבוצת רקדנים וקהל בהופעת ערב" width="900" height="675" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-22.jpg" alt="רקדן בקפיצה על במה צבעונית" width="402" height="603" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-23.jpg" alt="קבוצת היפ הופ בהופעה על במה" width="785" height="522" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-24.jpg" alt="רקדן נשען על קיר על במה" width="540" height="630" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-25.jpg" alt="שורת רקדנים מול אורות על במה" width="720" height="480" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-26.jpg" alt="רקדנית בלט בסטודיו, בשחור לבן" width="676" height="900" loading="lazy"></button></figure>
+<figure><button type="button" aria-label="הגדלת תמונה"><img src="images/gallery-27.jpg" alt="בוגר בית הספר רוקד על במה" width="870" height="870" loading="lazy"></button></figure>
+    </div>
+  </div>
+</section>
+
+<dialog id="lb" aria-label="תצוגת תמונה"><img alt=""><div class="lbc"><button type="button" class="n">הבאה</button><button type="button" class="x">סגירה</button><button type="button" class="p">הקודמת</button></div></dialog>
+
 <section aria-labelledby="denis-h">
   <div class="wrap about">
-    <div class="photo" role="img" aria-label="מקום לתמונה של דניס פרי">מקום לתמונה של דניס פרי</div>
+    <div class="photo"><img src="images/denis-peri.jpg" alt="דניס פרי, מנהלת אמנותית של גפני, בסטודיו" width="768" height="1024"></div>
     <div>
-      <h2 id="denis-h">דניס פרי, מנהל אמנותי</h2>
-      <p class="lead">דניס מוביל את צוות מורי המחול של בית הספר ומלמד בו. כאן יופיע סיפור קצר על דרכו במחול ועל הגישה שלו: לתת לכל תלמיד ותלמידה מקום למצוא את הקול והתנועה הייחודיים להם.</p>
+      <h2 id="denis-h">דניס פרי, מנהלת אמנותית</h2>
+      <p class="lead">דניס מובילה את צוות מורי המחול של בית הספר ומלמדת בו. כאן יופיע סיפור קצר על דרכה במחול ועל הגישה שלה: לתת לכל תלמיד ותלמידה מקום למצוא את הקול והתנועה הייחודיים להם.</p>
       <a class="btn alt" href="#signup">לדבר עם דניס</a>
     </div>
   </div>
@@ -180,6 +230,17 @@ document.getElementById("trial").addEventListener("submit", function(e){
   var p = document.getElementById("phone").value.trim();
   window.open(link("שלום דניס, אשמח לפרטים על שיעורי המחול בגפני.\nשם: " + g + "\nגיל: " + a + "\nטלפון: " + p), "_blank", "noopener");
 });
+
+(function(){
+var bs=[].slice.call(document.querySelectorAll('.gallery button')),lb=document.getElementById('lb'),im=lb.querySelector('img'),i=0;
+function show(n){i=(n+bs.length)%bs.length;var t=bs[i].querySelector('img');im.src=t.src;im.alt=t.alt;}
+bs.forEach(function(b,n){b.addEventListener('click',function(){show(n);lb.showModal();});});
+lb.querySelector('.x').onclick=function(){lb.close();};
+lb.querySelector('.n').onclick=function(){show(i+1);};
+lb.querySelector('.p').onclick=function(){show(i-1);};
+lb.addEventListener('click',function(e){if(e.target===lb)lb.close();});
+document.addEventListener('keydown',function(e){if(!lb.open)return;if(e.key==='ArrowLeft')show(i+1);if(e.key==='ArrowRight')show(i-1);});
+})();
 </script>
 </body>
 </html>
