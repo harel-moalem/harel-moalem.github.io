@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>סטודיו פרי למחול | חוגי ריקוד לבנות בעפולה</title>
+<meta name="description" content="חוגי היפ הופ, ג'אז וקונטמפוררי לבנות בעפולה. שיעור ניסיון ראשון בהתאמה אישית.">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;800&family=Assistant:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF7FA;--ink:#2A1236;--muted:#6B5578;--pink:#E6247C;--lilac:#CDB4F6;--lemon:#F6E05E;--card:#fff;--line:#EBD9EA;--on:#2A1236}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1B0B25;--ink:#FFF1F7;--muted:#C9B3D6;--card:#2A1236;--line:#43275A}}
+:root[data-theme="dark"]{--bg:#1B0B25;--ink:#FFF1F7;--muted:#C9B3D6;--card:#2A1236;--line:#43275A}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;height:100%}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.1rem/1.7 Assistant,Arial,sans-serif}
+h1,h2,h3{font-family:Rubik,Arial,sans-serif;line-height:1.15;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+h2{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;margin-bottom:12px}
+.lead{color:var(--muted);max-width:52ch;margin:0 0 32px}
+.btn{display:inline-block;background:var(--pink);color:#fff;font:500 1.1rem Rubik,Arial,sans-serif;padding:14px 28px;border-radius:999px;text-decoration:none;border:0;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.hero{position:relative;overflow:hidden;padding:72px 0 88px}
+.hero h1{font-size:clamp(2.4rem,8vw,5rem);font-weight:800;max-width:11ch}
+.hero p{max-width:40ch;color:var(--muted);margin:20px 0 28px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.ribbon{position:absolute;left:-4%;top:50%;width:62%;max-width:640px;transform:translateY(-50%);z-index:0;pointer-events:none}
+.ribbon path{fill:none;stroke-linecap:round;stroke-width:14;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.4s ease-out forwards}
+.ribbon .a{stroke:var(--pink)}.ribbon .b{stroke:var(--lilac);animation-delay:.3s}.ribbon .c{stroke:var(--lemon);animation-delay:.6s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .wrap{position:relative;z-index:1}
+@media (max-width:700px){.ribbon{width:110%;opacity:.35;top:70%}}
+.styles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.style{padding:32px 26px;color:var(--on)}
+.style h3{font-size:1.7rem;margin-bottom:8px}
+.style p{margin:0}
+.hip{background:var(--pink);color:#fff;border-radius:6px;box-shadow:-8px 8px 0 var(--ink)}
+.jazz{background:var(--lemon);clip-path:polygon(0 0,100% 0,100% 82%,88% 100%,0 100%)}
+.cont{background:var(--lilac);border-radius:120px 120px 28px 28px;padding-top:56px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:14px 18px;text-align:right;border-bottom:1px solid var(--line)}
+th{font-family:Rubik,Arial,sans-serif;font-weight:500}
+tr:last-child td{border-bottom:0}
+.note{color:var(--muted);font-size:.95rem;margin-top:12px}
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:32px;align-items:center}
+.photo{aspect-ratio:4/5;background:var(--lilac);border-radius:200px 200px 24px 24px;display:grid;place-items:center;color:var(--on);font:500 1rem Rubik,Arial,sans-serif;text-align:center;padding:20px}
+@media (max-width:700px){.about{grid-template-columns:1fr}.photo{max-width:260px}}
+.signup{background:var(--ink);color:var(--bg);border-radius:28px;padding:40px 24px}
+.signup h2{color:var(--bg)}
+.signup .lead{color:var(--lilac)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
+label{display:block;font-weight:600;margin-bottom:6px}
+input{width:100%;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid transparent;background:#fff;color:#2A1236}
+footer{padding:40px 0 100px;color:var(--muted);text-align:center}
+.wa{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:16px;z-index:5;background:#25D366;color:#0b2e17;font:500 1rem Rubik,Arial,sans-serif;padding:12px 20px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion:reduce){.ribbon path{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <svg class="ribbon" viewBox="0 0 600 400" aria-hidden="true">
+    <path class="a" d="M20 330 C 150 40, 260 420, 380 150 S 540 60, 590 120"/>
+    <path class="b" d="M20 360 C 170 120, 280 440, 400 200 S 550 120, 590 170"/>
+    <path class="c" d="M20 390 C 190 200, 300 460, 420 250 S 560 180, 590 220"/>
+  </svg>
+  <div class="wrap">
+    <h1>היפ הופ, ג'אז וקונטמפוררי בעפולה</h1>
+    <p>סטודיו פרי למחול הוא חוג ריקוד לבנות, מגיל הגן ועד התיכון, בניהולו של דניס. השיעור הראשון הוא שיעור ניסיון.</p>
+    <div class="cta">
+      <a class="btn" href="#signup">להזמנת שיעור ניסיון</a>
+      <a class="btn alt" href="#classes">לצפייה במערכת השעות</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section aria-labelledby="styles-h">
+  <div class="wrap">
+    <h2 id="styles-h">שלושה סגנונות, ריקוד אחד שלך</h2>
+    <p class="lead">כל בת מוצאת את התנועה שמתאימה לה, ואפשר לנסות יותר מסגנון אחד.</p>
+    <div class="styles">
+      <article class="style hip"><h3>היפ הופ</h3><p>קצב, ביטחון וסטייל. שיעור מלא באנרגיה שמסתיים בכוריאוגרפיה שלמה.</p></article>
+      <article class="style jazz"><h3>ג'אז</h3><p>תנועות חדות, טכניקה נקייה ובימתיות. בונה כוח, גמישות ונוכחות.</p></article>
+      <article class="style cont"><h3>קונטמפוררי</h3><p>תנועה זורמת ורגשית. לומדות להקשיב לגוף וליצור תנועה משלהן.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="classes" aria-labelledby="classes-h">
+  <div class="wrap">
+    <h2 id="classes-h">מערכת שעות</h2>
+    <p class="lead">קבוצות לפי גיל, כדי שכל בת תרקוד עם בנות בנות גילה.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>קבוצה</th><th>סגנון</th><th>יום</th><th>שעה</th></tr></thead>
+        <tbody>
+          <tr><td>בנות 5-8</td><td>היפ הופ</td><td>יום ראשון</td><td>16:00</td></tr>
+          <tr><td>בנות 9-12</td><td>ג'אז</td><td>יום שלישי</td><td>17:00</td></tr>
+          <tr><td>בנות 9-12</td><td>היפ הופ</td><td>יום רביעי</td><td>17:00</td></tr>
+          <tr><td>נוער 13-17</td><td>קונטמפוררי</td><td>יום שני</td><td>18:30</td></tr>
+          <tr><td>נוער 13-17</td><td>ג'אז</td><td>יום חמישי</td><td>18:00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">הימים והשעות כאן הם דוגמה ויעודכנו בקרוב.</p>
+  </div>
+</section>
+
+<section aria-labelledby="denis-h">
+  <div class="wrap about">
+    <div class="photo" role="img" aria-label="מקום לתמונה של דניס">מקום לתמונה של דניס</div>
+    <div>
+      <h2 id="denis-h">הכירו את דניס</h2>
+      <p class="lead">דניס מנהל את הסטודיו ומלמד בו. כאן יופיע סיפור קצר על הדרך שלו במחול, הניסיון שלו עם בנות, והגישה שלו לשיעור: ללמוד טכניקה, ליהנות, ולצאת מהשיעור עם יותר ביטחון.</p>
+      <a class="btn alt" href="#signup">לדבר עם דניס</a>
+    </div>
+  </div>
+</section>
+
+<section id="signup" aria-labelledby="signup-h">
+  <div class="wrap">
+    <div class="signup">
+      <h2 id="signup-h">שיעור ניסיון בעפולה</h2>
+      <p class="lead">משאירים שם, גיל וטלפון, ופותחים הודעה בוואטסאפ עם כל הפרטים.</p>
+      <form id="trial">
+        <div class="fields">
+          <div><label for="girl">שם הבת</label><input id="girl" required autocomplete="off"></div>
+          <div><label for="age">גיל</label><input id="age" type="number" min="4" max="18" required></div>
+          <div><label for="phone">טלפון של ההורה</label><input id="phone" type="tel" inputmode="tel" required></div>
+        </div>
+        <button class="btn" type="submit">שליחה בוואטסאפ</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">סטודיו פרי למחול | עפולה | כתובת וטלפון יתווספו כאן</div>
+</footer>
+
+<a class="wa" id="wa" href="#signup">וואטסאפ</a>
+
+<script>
+// Replace with the studio's real WhatsApp number, in international format without + (e.g. 972501234567)
+var WA_NUMBER = "972500000000";
+function link(text){ return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
+document.getElementById("wa").href = link("שלום, אשמח לפרטים על חוגי הריקוד בסטודיו פרי למחול");
+document.getElementById("trial").addEventListener("submit", function(e){
+  e.preventDefault();
+  var g = document.getElementById("girl").value.trim();
+  var a = document.getElementById("age").value.trim();
+  var p = document.getElementById("phone").value.trim();
+  var msg = "שלום, אשמח להזמין שיעור ניסיון.\nשם הבת: " + g + "\nגיל: " + a + "\nטלפון: " + p;
+  window.open(link(msg), "_blank", "noopener");
+});
+</script>
+</body>
+</html>
